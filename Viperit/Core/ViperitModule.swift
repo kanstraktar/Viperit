@@ -45,7 +45,7 @@ public extension ViperitModule where Self: RawRepresentable, Self.RawValue == St
         return Module.loadView(forModule: self, bundle: bundle, viewClass: viewClass)
     }
     
-    func build(view: UserInterface, interactor: Interactor, presenter: Presenter, router: Router, displayData: DisplayData) -> Module {
+    func build(view: UserInterface, interactor: Interactor?, presenter: Presenter, router: Router, displayData: DisplayData?) -> Module {
         return Module.build(view: view, interactor: interactor, presenter: presenter, router: router, displayData: displayData)
     }
 }

@@ -17,8 +17,7 @@ public protocol RouterProtocol {
     func show(from: UIViewController, embedInNavController: Bool, setupData: Any?, viewDidLoad: (() -> Void)?)
     func show(from containerView: UIViewController, insideView targetView: UIView, setupData: Any?,
               viewDidLoad: (() -> Void)?)
-    func present(from: UIViewController, animated: Bool, embedInNavController: Bool, setupData: Any?,
-              viewDidLoad: (() -> Void)?)
+    func present(from: UIViewController, animated: Bool, embedInNavController: Bool, setupData: Any?, modalPresentationStyle: UIModalPresentationStyle?, viewDidLoad: (() -> Void)?)
 }
 
 open class Router: RouterProtocol {
@@ -58,11 +57,12 @@ open class Router: RouterProtocol {
     }
     
     open func present(from: UIViewController, animated: Bool = true, embedInNavController: Bool = true,
-                      setupData: Any? = nil, viewDidLoad: (() -> Void)?) {
+                      setupData: Any? = nil, modalPresentationStyle: UIModalPresentationStyle? = nil, viewDidLoad: (() -> Void)?) {
         
         _presenter.viewDidLoad = viewDidLoad
         process(setupData: setupData)
         let view: UIViewController = embedInNavController ? embedInNavigationController() : _view
+        if let modalStyle = modalPresentationStyle { view.modalPresentationStyle = modalStyle }
         from.present(view, animated: animated, completion: nil)
     }
     
